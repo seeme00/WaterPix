@@ -26,16 +26,14 @@ function mouseEvent(){
     currentCursorCellId = cId;
     if (mouseButton == LEFT){
       if(keyCode == CONTROL){
-        this.addWater(cId);
+        addWater(cId);
       }else{
-        this.addWall(cId);
+        addWall(cId);
       }
     }
   }
 
 }
-
-//mouseX mouseYpressed, released, mouseButton LEFT, RIGHT, CENTER
 
 function setup() {
   createCanvas(500, 500);
@@ -54,21 +52,21 @@ function setup() {
 }
 
 
-  this.addWater = function(i, content){
+  addWater = function(i, content){
     var c = cells[floor(i)];
     c.isWall = false;
     c.content = content || maxLiquid;
     activeCells.push(c);
   }
 
-  this.addWall = function(i){
+  addWall = function(i){
     var c = cells[i];
     c.isWall = !c.isWall;
     c.content = 0;
   }
 
 //-------------------------------------------------------------
-  this.getNeighboors = function(index){
+  getNeighboors = function(index){
     var top = index < nbCells;
     var bottom = index >= cells.length - nbCells;
     var left = index % nbCells  == 0;
@@ -89,7 +87,8 @@ function setup() {
   }
 
 function draw() {
-  clear();
+  //clear();
+  background(220);
 
   var intents = [];
   for(var i = 0; i < activeCells.length; i++){
@@ -112,11 +111,5 @@ function draw() {
   for(var i = 0; i < cells.length; i++){
     totalAmount += cells[i].content;
     cells[i].draw();
-    /*if (cells[i].content > maxLiquid){
-      fill(color(255, 0, 0));
-      rect(cells[i].position.x * cellSize, cells[i].position.y * cellSize, cellSize, cellSize);
-    }*/
   }
-
-  //console.log(totalAmount);
 }
